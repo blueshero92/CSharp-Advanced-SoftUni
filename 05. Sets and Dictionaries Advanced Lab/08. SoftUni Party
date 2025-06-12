@@ -1,0 +1,39 @@
+namespace _08._SoftUni_Party
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            HashSet<string> guestlist = new HashSet<string>();
+            HashSet<string> cameToParty = new HashSet<string>();
+            HashSet<string> didNotCome = new HashSet<string>();
+
+            string command;
+
+            while ((command = Console.ReadLine()) != "PARTY")
+            {
+                guestlist.Add(command);
+            }
+
+            while ((command = Console.ReadLine()) != "END")
+            {
+                cameToParty.Add(command);
+            }
+
+            foreach (string guest in guestlist)
+            {
+                if (!cameToParty.Contains(guest))
+                {
+                    didNotCome.Add(guest);
+                }
+            }
+
+            Console.WriteLine(didNotCome.Count);
+
+            foreach(string guest in didNotCome.OrderByDescending(guest => char.IsDigit(guest[0])))
+            {
+                Console.WriteLine(guest);
+            }
+        }
+    }
+}
