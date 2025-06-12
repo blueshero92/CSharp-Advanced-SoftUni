@@ -1,0 +1,38 @@
+namespace _07._Parking_Lot
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            HashSet<string> parking = new HashSet<string>();
+
+            string input;
+
+            while((input = Console.ReadLine()) != "END")
+            {
+                string[] tokens = input.Split(", ", StringSplitOptions.RemoveEmptyEntries);
+
+                string command = tokens[0];
+                string carNumber = tokens[1];
+
+                if (command == "IN")
+                {
+                    parking.Add(carNumber);
+                }
+                else
+                {
+                    parking.Remove(carNumber);
+                }
+            }
+
+            if(parking.Count > 0 )
+            {
+                Console.WriteLine(string.Join(Environment.NewLine, parking));
+            }
+            else
+            {
+                Console.WriteLine("Parking Lot is Empty");
+            }
+        }
+    }
+}
