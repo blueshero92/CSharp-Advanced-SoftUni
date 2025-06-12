@@ -1,0 +1,43 @@
+namespace _02._Basic_Queue_Operations
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Queue<int> numbersStack = new Queue<int>();
+
+            string[] command = Console.ReadLine().Split();
+
+            int numbersToPush = int.Parse(command[0]);
+            int numbersToPop = int.Parse(command[1]);
+            int numberToLook = int.Parse(command[2]);
+
+            int[] numbers = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            for (int i = 0; i < numbersToPush; i++)
+            {
+                numbersStack.Enqueue(numbers[i]);
+            }
+
+            for (int i = 0; i < numbersToPop; i++)
+            {
+                numbersStack.Dequeue();
+            }
+
+            if (numbersStack.Contains(numberToLook))
+            {
+                Console.WriteLine("true");
+            }
+            else if (numbersStack.Count > 0)
+            {
+                Console.WriteLine(numbersStack.Min());
+            }
+
+            if (numbersStack.Count <= 0)
+            {
+                Console.WriteLine("0");
+            }
+        }
+    }
+}
