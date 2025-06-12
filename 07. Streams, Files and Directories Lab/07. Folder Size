@@ -1,0 +1,25 @@
+namespace FolderSize
+{
+    public class FolderSize
+    {
+        static void Main()
+        {
+            string folderPath = @"..\..\..\Files\TestFolder";
+            string outputPath = @"..\..\..\Files\output.txt";
+
+            GetFolderSize(folderPath, outputPath);
+        }
+
+        public static void GetFolderSize(string folderPath, string outputFilePath)
+        {
+            string[] files = Directory.GetFiles(folderPath);
+
+            foreach (string file in files)
+            {
+                FileInfo info = new FileInfo(file);
+
+                Console.WriteLine($"{info.Length / 1024} KB");
+            }
+        }
+    }
+}
