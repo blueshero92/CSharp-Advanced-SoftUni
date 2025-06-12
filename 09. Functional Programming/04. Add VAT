@@ -1,0 +1,22 @@
+namespace _04._Add_VAT
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<decimal> prices = Console.ReadLine().Split(", ").Select(decimal.Parse).ToList();
+
+            Func<decimal, decimal> addVAT = AddVAT;
+
+            foreach (decimal price in prices)
+            {
+                Console.WriteLine($"{addVAT(price):f2}");
+            }
+        }
+
+        private static decimal AddVAT(decimal price)
+        {
+            return price += price * 0.20m;
+        }
+    }
+}
