@@ -1,0 +1,34 @@
+namespace _02._Sets_of_Elements
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            HashSet<int> set1 = new();
+            HashSet<int> set2 = new();
+
+            int[] command = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+
+            int length1 = command[0];
+            int length2 = command[1];
+
+            for (int i = 0; i < length1; i++)
+            {
+                int number = int.Parse(Console.ReadLine());
+
+                set1.Add(number);
+            }
+
+            for (int j = 0; j < length2; j++)
+            {
+                int number2 = int.Parse(Console.ReadLine());
+
+                set2.Add(number2);
+            }
+
+            set1.IntersectWith(set2);
+
+            Console.WriteLine(string.Join(" ", set1));
+        }
+    }
+}
