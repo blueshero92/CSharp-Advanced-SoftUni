@@ -1,0 +1,76 @@
+using System.Text.RegularExpressions;
+
+namespace WordCount
+{
+    public class WordCount
+    {
+        static void Main()
+        {
+            
+
+            string wordPath = @"..\..\..\Files\words.txt";
+            string textPath = @"..\..\..\Files\text.txt";
+            string outputPath = @"..\..\..\Files\output.txt";
+
+            CalculateWordCounts(wordPath, textPath, outputPath);
+        }
+
+        public static void CalculateWordCounts(string wordPath, string textPath, string outputPath)
+        {
+
+            Dictionary<string, int> wordsCount = new();
+            List<string> words = new();
+
+            using (StreamReader reader = new (wordPath))
+            {
+                string word;
+
+                while ((word = reader.ReadLine()) != null)
+                {
+                    
+                    if (!wordsCount.ContainsKey(word))
+                    {
+                        wordsCount.Add (word, 1);
+                    }
+                    else
+                    {
+                        wordsCount[word]++;
+                    }
+
+                    if (!words.Contains(word))
+                    {
+                        words.Add(word);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }                
+               
+            }
+
+            using (StreamReader reader2 = new(textPath))
+            {
+                string line;
+
+                while ((line = reader2.ReadLine()) != null)
+                {
+                    foreach (string word in words)
+                    {
+                        string pattern = $"(?<=[^a-zA-Z]){word}(?=[^a-zA-Z])";
+                        int count = Regex.Matches(line, pattern, RegexOptions.IgnoreCase).Count;
+                        wordsCount[word] += count;
+                    }
+                }
+            }
+
+            using (StreamWriter writer = new StreamWriter(outputPath))
+            {
+                foreach (var word in wordsCount.OrderByDescending(x => x.Value))
+                {
+                    writer.WriteLine($"{word.Key} - {word.Value}");
+                }
+            }
+        }
+    }
+}
