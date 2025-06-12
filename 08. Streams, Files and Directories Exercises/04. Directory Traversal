@@ -1,0 +1,61 @@
+namespace DirectoryTraversal
+{
+    using System;
+    using System.Text;
+
+    public class DirectoryTraversal
+    {
+        static void Main()
+        {
+            string path = Console.ReadLine();
+            string reportFileName = @"\report.txt";
+
+            string reportContent = TraverseDirectory(path);
+            Console.WriteLine(reportContent);
+
+            WriteReportToDesktop(reportContent, reportFileName);
+        }
+
+
+        public static string TraverseDirectory(string inputFolderPath)
+        {
+            SortedDictionary<string, List<FileInfo>> filesExtentions = new();
+
+            string[] files = Directory.GetFiles(inputFolderPath);
+
+            foreach (string file in files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+
+                if (!filesExtentions.ContainsKey(fileInfo.Extension))
+                {
+                    filesExtentions.Add(fileInfo.Extension, new List<FileInfo>());
+                }
+
+                filesExtentions[fileInfo.Extension].Add(fileInfo);
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var fileExtention in filesExtentions.OrderByDescending(fe => fe.Value.Count))
+            {
+                sb.AppendLine(fileExtention.Key);
+
+                foreach (var file in fileExtention.Value.OrderBy(f => f.Length))
+                {
+                    sb.AppendLine($"--{file.Name} - {(double)file.Length / 1024:f3}kb");
+                }
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        private static void WriteReportToDesktop(string reportContent, string reportFileName)
+        {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + reportFileName;
+
+            File.WriteAllText(filePath, reportContent);
+
+        }
+    }
+}
