@@ -1,0 +1,21 @@
+namespace _03._Periodic_Table
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int count = int.Parse(Console.ReadLine());
+
+            SortedSet<string> table = new();
+
+            for (int i = 0; i < count; i++)
+            {
+                string[] elements = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                table.UnionWith(elements);
+            }
+
+            Console.WriteLine(string.Join(" ", table));
+        }
+    }
+}
