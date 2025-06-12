@@ -1,0 +1,32 @@
+namespace _6._Supermarket
+{
+    internal class Program
+    {
+        static void Main()
+        {
+            string command;
+
+            Queue<string> customers = new Queue<string>();
+
+            while((command = Console.ReadLine()) != "End")
+            {
+                if(command != "Paid")
+                {
+                    customers.Enqueue(command);
+                }
+                else
+                {
+                    foreach(string name in customers)
+                    {
+                        Console.WriteLine(name);
+                    }
+
+                    customers.Clear();
+                    
+                }
+            }
+
+            Console.WriteLine($"{customers.Count} people remaining.");
+        }
+    }
+}
