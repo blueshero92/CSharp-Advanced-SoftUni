@@ -1,0 +1,40 @@
+namespace _2._Sum_Matrix_Columns
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input = Console.ReadLine().Split(", ").Select(int.Parse).ToArray();
+
+            int rows = input[0];
+            int cols = input[1];
+
+            int[,] matrix = new int[rows, cols];
+            
+            for (int row = 0; row < rows; row++)
+            {
+                int[] values = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+                for (int col = 0; col < cols; col++)
+                {
+                    matrix[row, col] = values[col];
+                }
+            }
+            
+
+            for (int col = 0; col < cols; col++)
+            {
+                int colsSum = 0;
+
+                for (int row = 0; row < rows; row++)
+                {
+                    colsSum += matrix[row, col];
+                }
+                
+                Console.WriteLine(colsSum);
+                
+            }
+
+        }
+    }
+}
