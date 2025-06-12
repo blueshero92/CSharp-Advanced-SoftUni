@@ -1,0 +1,68 @@
+namespace _6._Jagged_Array_Modification
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int rows = int.Parse(Console.ReadLine());
+
+            int[][] matrix = new int[rows][];
+
+            for (int row = 0; row < rows; row++)
+            {
+                int[] values = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+                matrix[row] = values;
+            }
+
+            string command;
+
+            while ((command = Console.ReadLine()) != "END")
+            {
+                string[] splitted = command.Split();
+
+                switch (splitted[0])
+                {
+                    case "Add":
+                        int row = int.Parse(splitted[1]);
+                        int col = int.Parse(splitted[2]);
+                        int value = int.Parse(splitted[3]);
+
+                        if (row >= matrix.Length || col >= matrix.Length || row < 0 || col < 0)
+                        {
+                            Console.WriteLine("Invalid coordinates");
+                        }
+                        else
+                        {
+                            matrix[row][col] += value;
+                        }
+                        break;
+                    case "Subtract":
+                        int row1 = int.Parse(splitted[1]);
+                        int col1 = int.Parse(splitted[2]);
+                        int valueToDecrease = int.Parse(splitted[3]);
+                        if (row1 > matrix.Length || col1 > matrix.Length || row1 < 0 || col1 < 0)
+                        {
+                            Console.WriteLine("Invalid coordinates");
+                        }
+                        else
+                        {
+                            matrix[row1][col1] -= valueToDecrease;
+                        }
+                        break;
+                }
+            }
+
+            for (int row = 0; row < matrix.Length; row++)
+            {
+                for (int col = 0; col < matrix[row].Length; col++)
+                {
+                    Console.Write($"{matrix[row][col]} ");
+                }
+
+                Console.WriteLine();
+            }
+
+        }
+    }
+}
