@@ -1,0 +1,40 @@
+namespace _8._Traffic_Jam
+{
+    internal class Program
+    {
+        static void Main()
+        {
+            int carsToPass = int.Parse(Console.ReadLine());
+
+            string input = string.Empty;
+
+            int count = 0;
+
+            Queue<string> cars = new Queue<string>();
+
+            while ((input = Console.ReadLine()) != "end")
+            {
+                if (input != "green")
+                {
+                    cars.Enqueue(input);
+                }
+                else
+                {
+                    for (int car = 0; car < carsToPass; car++)
+                    {
+                        if (cars.Count > 0)
+                        {
+                            Console.WriteLine($"{cars.Dequeue()} passed!");
+                            count++;
+                        }
+
+                    }
+
+                }
+            }
+
+            Console.WriteLine($"{count} cars passed the crossroads.");
+
+        }
+    }
+}
