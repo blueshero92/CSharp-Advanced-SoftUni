@@ -1,0 +1,42 @@
+namespace _08._Balanced_Parenthesis
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+
+            Stack<char> stack = new Stack<char>();            
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == '{' || input[i] == '(' || input[i] == '[')
+                {
+                    stack.Push(input[i]);
+                }
+                if (input[i] == '}' || input[i] == ')' || input[i] == ']')
+                {
+                    if(stack.Count <= 0)
+                    {
+                        Console.WriteLine("NO");
+                        Environment.Exit(0);
+                    }
+                    
+                    char lastInStack = stack.Pop();
+
+                    if ((input[i] == '}' && lastInStack == '{') || (input[i] == ')' && lastInStack == '(') || (input[i] == ']' && lastInStack == '['))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("NO");
+                        Environment.Exit(0);
+                    }
+
+                }
+            }
+            Console.WriteLine("YES");
+        }
+    }
+}
