@@ -1,0 +1,33 @@
+namespace _03._Count_Uppercase_Words
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] text = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToArray();
+
+            Func<string, bool> isUpper = IsUpper;
+
+            foreach (string word in text)
+            {
+                if (isUpper(word))
+                {
+                    Console.WriteLine(word);
+                }
+            }
+
+        }
+
+        private static bool IsUpper(string word)
+        {
+            
+            if (char.IsUpper(word[0]))
+            {
+               return true;
+            }
+                            
+
+            return false;
+        }
+    }
+}
