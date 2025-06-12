@@ -1,0 +1,63 @@
+namespace EvenLines
+{
+    using System;
+    using System.Text;
+
+    public class EvenLines
+    {
+        static void Main()
+        {
+            string inputFilePath = @"..\..\..\text.txt";
+
+            Console.WriteLine(ProcessLines(inputFilePath));
+        }
+
+        public static string ProcessLines(string inputFilePath)
+        {
+            using StreamReader reader = new (inputFilePath);
+            StringBuilder sb = new();
+
+            string line;
+
+            int count = 0;
+
+            while((line = reader.ReadLine()) != null)
+            {
+                
+                if (count % 2 == 0)
+                {
+                    string replaceChars = ReplaceChars(line);
+                    string reversedWords = ReverseWords(replaceChars);
+
+                    sb.AppendLine(reversedWords);
+                }
+                
+                count++;
+            }
+
+
+            return sb.ToString().TrimEnd();
+        }
+
+
+        private static string ReplaceChars(string line)
+        {
+            StringBuilder sb = new StringBuilder(line);
+
+            char[] symbols = { '-', ',', '.', '!', '?' };
+
+            foreach (char symbol in symbols)
+            {
+                sb.Replace(symbol, '@');
+            }
+
+            return sb.ToString();
+        }
+        private static string ReverseWords(string line)
+        {      
+            string[] words = line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Reverse().ToArray();
+
+            return string.Join(" ", words);
+        }
+    }
+}
