@@ -1,0 +1,27 @@
+namespace _05._Count_Symbols
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+
+            SortedDictionary<char, int> symbolsCount = new();
+
+            foreach (char symbol in input)
+            {
+                if (!symbolsCount.ContainsKey(symbol))
+                {
+                    symbolsCount.Add(symbol, 0);
+                }
+
+                symbolsCount[symbol]++;
+            }
+
+            foreach(KeyValuePair<char, int> symbol in symbolsCount)
+            {
+                Console.WriteLine($"{symbol.Key}: {symbol.Value} time/s");
+            }
+        }
+    }
+}
