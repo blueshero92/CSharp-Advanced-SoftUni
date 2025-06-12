@@ -1,0 +1,54 @@
+namespace _06._Wardrobe
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int colorsCount = int.Parse(Console.ReadLine());
+
+            Dictionary<string, Dictionary<string, int>> wardrobe = new();
+
+            for (int i = 0; i < colorsCount; i++)
+            {
+                string[] input = Console.ReadLine().Split(new string[] { " -> ", "," }, StringSplitOptions.RemoveEmptyEntries);
+
+                string color = input[0];                
+                
+                if (!wardrobe.ContainsKey(color))
+                {
+                    wardrobe.Add(color, new Dictionary<string, int>());
+                }
+                for (int j = 1; j < input.Length; j++)
+                {
+                    string wear = input[j];
+
+                    if (!wardrobe[color].ContainsKey(wear))
+                    {
+                        wardrobe[color].Add(wear, 0);
+                    }
+
+                    wardrobe[color][wear]++;
+                }
+            }
+
+            string[] foundWear = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (KeyValuePair<string, Dictionary<string, int>> color in wardrobe)
+            {
+                Console.WriteLine($"{color.Key} clothes:");
+
+                foreach (KeyValuePair<string, int> wear in color.Value)
+                {
+                    string printWear = $"* {wear.Key} - {wear.Value}";
+
+                    if (color.Key == foundWear[0] && wear.Key == foundWear[1])
+                    {
+                        printWear += " (found!)";
+                    }
+
+                    Console.WriteLine(printWear);
+                }
+            }
+        }
+    }
+}
