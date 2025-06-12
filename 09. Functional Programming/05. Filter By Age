@@ -1,0 +1,88 @@
+using System;
+
+namespace _05._Filter_By_Age
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int studentsCount = int.Parse(Console.ReadLine());
+
+            List<Student> students = new();
+
+            for (int i = 0; i < studentsCount; i++)
+            {
+                string[] input = Console.ReadLine().Split(", ");
+                string name = input[0];
+                int age = int.Parse(input[1]);
+
+                Student student = new(name, age);
+
+                students.Add(student);
+            }
+
+            string condition = Console.ReadLine();
+            int ageThreshold = int.Parse(Console.ReadLine());
+            string format = Console.ReadLine();
+
+            Func<Student, int, bool> filter = FilterGenerator(condition);
+            Action<Student> printer = CreatePrinter(format);
+
+            Func<Student, int, bool> FilterGenerator(string condition)
+            {
+                Func<Student, int, bool> filter = null;
+                switch (condition)
+                {
+                    case "older":
+                        filter = (student, ageThreshold) => student.Age >= ageThreshold;
+                        break;
+                    case "younger":
+                        filter = (student, ageThreshold) => student.Age < ageThreshold;
+                        break;
+
+                }
+
+                return filter;
+
+            }
+
+            students = students.Where(student => filter(student, ageThreshold)).ToList();
+
+            students.ForEach(student => printer(student));
+
+            static Action<Student> CreatePrinter(string format)
+            {
+                switch (format)
+                {
+                    case "name age":
+                        return student => Console.WriteLine($"{student.Name} - {student.Age}");
+                        break;
+                    case "name":
+                        return student => Console.WriteLine($"{student.Name}");
+                        break;
+                    case "age":
+                        return student => Console.WriteLine($"{student.Age}");
+                        break;
+                }
+
+                return null;
+            }
+
+
+        }
+
+        class Student
+        {
+            public Student(string name, int age)
+            {
+                Name = name;
+                Age = age;
+            }
+
+            public string Name { get; set; }
+
+            public int Age { get; set; }
+        }
+    }
+
+}
