@@ -1,0 +1,35 @@
+namespace _05._Fashion_Boutique
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] clothesBoxes = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            int rackCapacity = int.Parse(Console.ReadLine());
+
+            Stack <int> clothesStack = new Stack<int>(clothesBoxes);
+
+            int racksCount = 1;
+            int sum = 0;
+
+            while (clothesStack.Count > 0)
+            {
+                int currentValue = clothesStack.Pop();
+
+                if (sum + currentValue <= rackCapacity)
+                {
+                    sum += currentValue;              
+                }                               
+                else
+                {
+                    racksCount++;
+                    sum = currentValue;
+                }                                
+                
+            }
+
+            Console.WriteLine(racksCount);
+        }
+    }
+}
