@@ -1,0 +1,54 @@
+using System.Text;
+
+namespace _09._Simple_Text_Editor
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int operations = int.Parse(Console.ReadLine());
+
+            Stack<(string,string)> commands = new Stack<(string, string)>();
+
+            string text = string.Empty;
+
+            for (int i = 0; i < operations; i++)
+            {
+                string[] command = Console.ReadLine().Split();
+
+                switch (command[0])
+                {
+                    case "1":
+                        string textToAdd = command[1];
+                        text = text + textToAdd;
+                        commands.Push((command[0], command[1]));
+                        break;
+                    case "2":
+                        int charsToRemove  = int.Parse(command[1]);
+                        string expression = text.Substring(text.Length - charsToRemove);
+                        text = text.Remove(text.Length - charsToRemove);
+                        commands.Push((command[0], expression));
+                        break;
+                    case "3":
+                        int index = int.Parse(command[1]);
+                        Console.WriteLine(text[index - 1]);
+                        break;
+                    case "4":
+                        var operation = commands.Pop();
+
+                        string textFromOperation = operation.Item2;
+
+                        if (operation.Item1 == "1")
+                        {
+                            text = text.Remove(text.Length - textFromOperation.Length);
+                        }
+                        else if (operation.Item1 == "2")
+                        {
+                            text += textFromOperation;
+                        }
+                        break;
+                }
+            }
+        }
+    }
+}
